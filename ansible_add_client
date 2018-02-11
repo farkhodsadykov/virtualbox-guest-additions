@@ -1,0 +1,50 @@
+#!/bin/bash
+
+
+# This line adds name and ip for ansible
+functionadd(){
+	echo "[$NAME]" >> /etc/ansible/hosts
+	echo $IP >> /etc/ansible/hosts
+}
+
+# This line deletes name and ip from ansible
+functiondell(){
+	sed  "/[$NAME]/d" /etc/ansible/hosts -i  
+	sed  "/$IP/d" /etc/ansible/hosts -i 
+}
+
+
+# This line installs need pakages 
+yum install ansible wget sshpass -y
+
+
+
+# This line creates variable for IP
+read -p "Please enter the IP :" IP
+read -p "Please enter the version VB :" VB
+read -p "Please enter the PASSWORD :" PASSWORD
+read -p "Please enter the name for ansible :" NAME
+# In this line i create file name of the PASSWD.txt
+echo $PASSWORD > PASSWORD.txt
+
+# This line will ssh-copy-id
+sshpass -f PASSWORD.txt ssh-copy-id root@$IP 
+cp template template1
+sed "s/NUMBER/$VB/g" template1 -i
+
+functionadd
+# In this line script will push template1 script 
+ansible $NAME -m script -a template1
+
+# This line will delete everything templates 
+functiondell
+rm -rf template1 
+
+
+
+
+
+
+
+
+#author Farkhod Sadykov

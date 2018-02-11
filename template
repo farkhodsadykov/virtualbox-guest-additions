@@ -1,0 +1,32 @@
+#!/bin/bash 
+
+
+echo "${green}############## Welcome to EvovleCyber's ######################${reset}"
+# This line will update your system and install new packages
+functionupdate(){
+	sudo yum update -y 
+	sudo yum install kernel-devel kernel-headers perl bzip2 gcc wget -y 
+	sudo touch /installvbox.sh 
+	sudo chmod +x /installvbox.sh
+	echo "/installvbox.sh" > /etc/rc.d/rc.local
+	reboot
+}
+
+functionupdate
+
+
+sudo echo -e "
+functiondownloadiso(){
+	ifup eth0
+	sudo wget  https://download.virtualbox.org/virtualbox/NUMBER/VBoxGuestAdditions_NUMBER.iso
+	sudo mkdir /mnt/iso
+	sudo mount -t iso9660 -o loop VBoxGuestAdditions_NUMBER.iso /mnt/iso/
+	sudo bash /mnt/iso/VBoxLinuxAdditions.run	
+	echo "" > /etc/rc.d/rc.local
+	sudo rm -rf /installvbox.sh
+	reboot 
+}
+functiondownloadiso " > /installvbox.sh
+
+
+#author Farkhod Sadykov
