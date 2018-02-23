@@ -9,7 +9,6 @@ functionupdate(){
 	sudo touch /installvbox.sh 
 	sudo chmod +x /installvbox.sh
 	echo "/installvbox.sh" > /etc/rc.d/rc.local
-	reboot
 }
 
 functionupdate
@@ -27,6 +26,7 @@ functiondownloadiso(){
 	reboot 
 }
 functiondownloadiso " > /installvbox.sh
+reboot
 
 
 #author Farkhod Sadykov
