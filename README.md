@@ -17,8 +17,11 @@ sh ansible_add_client
 ```
 
 `Please enter the IP :` Enter your clients ip
+
 `Please enter the version VB :` Enter version of VirtualBox
+
 `Please enter the PASSWORD :` Client's Password `root`
+
 `Please enter the name for ansible :` This name script will use for Ansible connection 
 
 
